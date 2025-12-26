@@ -2,23 +2,19 @@
 {
     public partial class MainPage : ContentPage
     {
-        int count = 0;
-
         public MainPage()
         {
             InitializeComponent();
+            var timer = new System.Timers.Timer(1000.0f);
+            timer.Elapsed += Timer_Elapsed;
+            timer.Start();
         }
 
-        private void OnCounterClicked(object sender, EventArgs e)
+        private void Timer_Elapsed(object? sender, System.Timers.ElapsedEventArgs e)
         {
-            count++;
+            var view = this.clock;
+            view.Invalidate();
 
-            if (count == 1)
-                CounterBtn.Text = $"Clicked {count} time";
-            else
-                CounterBtn.Text = $"Clicked {count} times";
-
-            SemanticScreenReader.Announce(CounterBtn.Text);
         }
     }
 
